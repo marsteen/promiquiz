@@ -54,4 +54,25 @@ mv ${id}_11_1024.png ${id}
 #
 rm *.png
 
-echo "$1 ${id}" >> index.txt 
+echo "$1 ${id}" >> index.txt
+
+strlast=("01" "01" "02" "03" "04" "05" "06" "07" "08" "09" "10")
+strpnow=("01" "02" "03" "04" "05" "06" "07" "08" "09" "10" "11")
+strnext=("02" "03" "04" "05" "06" "07" "08" "09" "10" "11" "11")
+
+for i in {0..10};
+do
+    fname=${id}/${strpnow[$i]}.html
+    echo $fname
+    echo "<html>" > ${fname}
+    echo "<head><style>" >> ${fname}  
+    echo "img { width: auto; height: 100%; }" >> ${fname}
+    echo "</style></head>" >> ${fname}    
+    echo "<body bgcolor=black>" >> ${fname}
+    echo "<script src=\"../addnavi.js\"></script>" >> ${fname}
+    echo "<center>" >> ${fname}
+    echo "<script>addnavi('" ${strlast[$i]}.html "','" ${strnext[$i]}.html "');</script>" >> ${fname}
+    echo "<img src=${id}_${strpnow[$i]}_1024.png>" >> ${fname}
+    echo "</body></html>" >> ${fname}    
+done
+
